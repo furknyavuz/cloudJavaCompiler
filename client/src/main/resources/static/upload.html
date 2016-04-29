@@ -1,0 +1,47 @@
+<!-- Upload component -->
+<div class="row" ng-controller="uploadController">
+    <div class="jumbotron" ng-hide="isloading">
+        <div class="row">
+            <div class="col-xs-12">
+                <h3>Upload source code</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="row" ng-if="errorMessage != ''">
+                    <div class="col-xs-12">
+                        <p class="bg-danger text-center">
+                            <span ng-bind="errorMessage"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <form>
+                    <div class="form-group">
+                        <input file-model="zip" id="input-1" type="file" accept=".zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed">
+                    </div>
+                    <div class="form-group" ng-if="message != ''">
+                    </div>
+                    <button type="button" class="btn btn-success" ng-click="uploadFile()">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Placeholder while compiling in progress -->
+    <div class="jumbotron" ng-show="isloading">
+        <div class="row">
+            <div class="col-xs-12">
+                <h3>Compiling..</h3>
+            </div>
+        </div>
+    </div>
+    <!-- Compile Output Component -->
+    <div class="jumbotron">
+        <h3>Output</h3>
+        <br>
+        <div ng-repeat="x in result track by $index"">
+            {{x}}
+        </div>
+    </div>
+</div>
