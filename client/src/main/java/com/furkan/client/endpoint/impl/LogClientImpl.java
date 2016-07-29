@@ -1,6 +1,7 @@
 package com.furkan.client.endpoint.impl;
 
 import com.furkan.client.endpoint.LogClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,8 @@ import java.util.HashMap;
 @Service("logClient")
 public class LogClientImpl implements LogClient {
 
-    private RestTemplate restTemplate = new RestTemplate();
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Override
     public String log(String message) {
@@ -24,7 +26,7 @@ public class LogClientImpl implements LogClient {
         HttpEntity<String> requestEntity = new HttpEntity<>(client + message);
 
         // Call service
-        String serviceUrl = "http://localhost:8083/log";
+        String serviceUrl = "http://log-server/log";
         ResponseEntity<String> response =  restTemplate.exchange(serviceUrl, HttpMethod.POST, requestEntity, String.class, new HashMap<>());
 
         return response.getBody();

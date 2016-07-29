@@ -28,7 +28,8 @@ public class UploadClientImpl implements UploadClient {
     @Qualifier("logClient")
     private LogClient logClient;
 
-    private RestTemplate restTemplate = new RestTemplate();
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Override
     public byte[] upload(MultipartFile file) {
@@ -53,7 +54,7 @@ public class UploadClientImpl implements UploadClient {
             headers.set("Content-Type", "multipart/form-data");
 
             // Call service
-            String serviceUrl = "http://localhost:8082/upload";
+            String serviceUrl = "http://compiler-server/upload";
             ResponseEntity<byte[]> response = restTemplate.exchange(serviceUrl, HttpMethod.POST, new HttpEntity<>(requestParts, headers), byte[].class);
             return response.getBody();
 
